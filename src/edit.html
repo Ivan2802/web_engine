@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/icons/mini_logo.png">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>Your easy site</title>
+</head>
+<body>
+
+    <section class="header header_z-index-100">
+        <div class="wrapper">
+            <div class="header_buttons">
+                <input type="button" class="header_buttons__button_back button_blue" value="Назад">
+                <input type="button" class="header_buttons__button_save button_green" value="Сохранить">
+            </div>
+            <div class="header_title">Редактировать</div>
+            <div class="header_buttons">
+                <input type="button" class="header_buttons__button_set button_blue" value="Настройка">
+            </div>
+        </div>
+    </section>
+
+    <section class="edit">
+            <!-- <div class="edit_set_btns">
+                <div class="edit_set_btns_left">
+                    <input class="edit_set_btns_left_block" type="button" value="Настрой блока">
+                    <input class="edit_set_btns_left_content" type="button" value="Настрой контента">
+                </div>
+                <div class="edit_set_btns_right">
+                    <img src="images/icons/arrow_up.png" alt="arrow_up" class="edit_set_btns_right_arrow_up">
+                    <img src="images/icons/arrow_down.png" alt="arrow_down" class="edit_set_btns_right_arrow_down">
+                    <img src="images/icons/cross.png" alt="cross" class="edit_set_btns_right_cross">
+                </div>
+            </div> -->
+            <section class="edit_main">
+                <img src="images/edit_main.jpg" alt="mountains" class="edit_main_image">
+                <div class="edit_set_btns not_visible">
+                    <div class="edit_set_btns_left">
+                        <input class="edit_set_btns_left_block button_blue" type="button" value="Настрой блока">
+                        <input class="edit_set_btns_left_content button_blue" type="button" value="Настрой контента">
+                    </div>
+                    <div class="edit_set_btns_right">
+                        <img src="images/icons/arrow_up.png" alt="arrow_up" class="edit_set_btns_right_arrow_up">
+                        <img src="images/icons/arrow_down.png" alt="arrow_down" class="edit_set_btns_right_arrow_down">
+                        <img src="images/icons/cross.png" alt="cross" class="edit_set_btns_right_cross">
+                    </div>
+                </div>
+                <div class="wrapper">
+                    <div class="edit_main_conten">
+                        <div class="edit_main_header">Заголовок</div>
+                        <div class="edit_main_sub_header">Подзаголовок</div>
+                        <div class="edit_main_text">Равным образом консультация с широким активом представляет собой интересный эксперимент проверки существенных финансовых и административных условий от представителей государственной власти</div>
+                    </div>
+                </div>
+            </section>
+            <div class="edit_main_addbtn">
+                <div class="edit_main_addbtn_text">Добавить блок</div>
+                <img src="images/icons/plus.png" alt="plus" class="edit_main_addbtn_btn">
+            </div>
+    </section>
+
+    <div class="pop_up_save disactive">
+        <div class="save_back_cover">
+            <div class="save_window">
+                <div class="save_window_title">Сохранить изменения?</div>
+                <div class="save_window_cross"><img src="images/icons/cross.png" alt="cross"></div>
+                <div class="save_window_inputs">
+                    <input type="button" class="save_window_inputs_button_y button_green" value="Да">
+                    <input type="button" class="save_window_inputs_button_n button_blue" value="Нет">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="set_block left">
+        <img src="images/icons/cross.png" alt="cross" class="set_block_img_cross">
+        <div class="set_block_title">Настройка блока</div>
+        <div class="set_block_inps">
+            <div class="set_block_inps_h">
+                <p class="set_block_inps_h_text">Высота</p>
+                <input type="text" placeholder="В пикселях (px) или процентах (%)" class="set_block_inps_h_inp set_inp">
+            </div>
+            <div class="set_block_inps_w">
+                <p class="set_block_inps_w_text">Ширина</p>
+                <input type="text" placeholder="В пикселях (px) или процентах (%)" class="set_block_inps_w_inp set_inp">
+            </div>
+            <div class="set_block_inps_color_bg">
+                <p class="set_block_inps_color_bg_text">Цвет</p>
+                <input type="color" placeholder="Цвет фона" class="set_block_inps_color_bg_inp set_inp">
+            </div>
+            <div class="set_block_inps_pos">
+                <p class="set_block_inps_pos_text">Выравнивание</p>
+                <select name="position" id="position" class="set_block_inps_pos_select set_inp">
+                    <option value="center">По центру</option>
+                    <option value="center">Верх центр</option>
+                    <option value="center">Низ центр</option>
+                    <option value="center">Лево центр</option>
+                    <option value="center">Право центр</option>
+                    <option value="center">1 угол</option>
+                    <option value="center">2 угол</option>
+                    <option value="center">3 угол</option>
+                    <option value="center">4 угол</option>
+                </select>
+            </div>
+            <div class="set_block_inps_m">
+                <p class="set_block_inps_m_text">Отступ сверху, справа, снизу, слева (через пробел: 0px 0px 0px 0px)</p>
+                <input type="text" placeholder="В пикселях (px) или процентах (%)" class="set_block_inps_m_inp set_inp">
+            </div>
+        </div>
+        <input type="button" value="Сохранить" class="set_block_save button_green"></input>
+    </div>
+
+    <div class="set_content left">
+        <img src="images/icons/cross.png" alt="cross" class="set_content_img_cross">
+        <div class="set_content_title">Настройка контента</div>
+        <div class="set_content_inps">
+            <div class="set_content_inps_titile">
+                <p class="set_content_inps_titile_text">Заголовок</p>
+                <input type="text" placeholder="Заголовок" class="set_content_inps_h_inp set_inp">
+            </div>
+            <div class="set_content_inps_s_titile">
+                <p class="set_content_inps_s_titile_text">Подзаголовок</p>
+                <input type="text" placeholder="Подзаголовок" class="set_content_inps_w_inp set_inp">
+            </div>
+            <div class="set_content_inps_text">
+                <p class="set_content_inps_text_text">Текст</p>
+                <textarea name="text" id="text" placeholder="Введите текст" class="set_content_inps_text_inp"></textarea>
+            </div>
+            <div class="set_content_inps_color_bg">
+                <p class="set_content_inps_color_bg_text">Цвет</p>
+                <input type="color" placeholder="Цвет фона" class="set_content_inps_color_bg_inp set_inp">
+            </div>
+        </div>
+        <input type="button" value="Сохранить" class="set_content_save button_green"></input>
+    </div>
+    
+    <script src="scripts/edit.js"></script>
+</body>
+</html>
