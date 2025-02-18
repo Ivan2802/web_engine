@@ -23,43 +23,30 @@
     </section>
 
     <section class="edit">
-            <!-- <div class="edit_set_btns">
-                <div class="edit_set_btns_left">
-                    <input class="edit_set_btns_left_block" type="button" value="Настрой блока">
-                    <input class="edit_set_btns_left_content" type="button" value="Настрой контента">
-                </div>
-                <div class="edit_set_btns_right">
-                    <img src="images/icons/arrow_up.png" alt="arrow_up" class="edit_set_btns_right_arrow_up">
-                    <img src="images/icons/arrow_down.png" alt="arrow_down" class="edit_set_btns_right_arrow_down">
-                    <img src="images/icons/cross.png" alt="cross" class="edit_set_btns_right_cross">
-                </div>
-            </div> -->
-            <section class="edit_main">
-                <img src="images/edit_main.jpg" alt="mountains" class="edit_main_image">
-                <div class="edit_set_btns not_visible">
-                    <div class="edit_set_btns_left">
-                        <input class="edit_set_btns_left_block button_blue" type="button" value="Настрой блока">
-                        <input class="edit_set_btns_left_content button_blue" type="button" value="Настрой контента">
-                    </div>
-                    <div class="edit_set_btns_right">
-                        <img src="images/icons/arrow_up.png" alt="arrow_up" class="edit_set_btns_right_arrow_up">
-                        <img src="images/icons/arrow_down.png" alt="arrow_down" class="edit_set_btns_right_arrow_down">
-                        <img src="images/icons/cross.png" alt="cross" class="edit_set_btns_right_cross">
-                    </div>
-                </div>
-                <div class="wrapper">
-                    <div class="edit_main_conten">
-                        <div class="edit_main_header">Заголовок</div>
-                        <div class="edit_main_sub_header">Подзаголовок</div>
-                        <div class="edit_main_text">Равным образом консультация с широким активом представляет собой интересный эксперимент проверки существенных финансовых и административных условий от представителей государственной власти</div>
-                    </div>
-                </div>
-            </section>
-            <div class="edit_main_addbtn">
-                <div class="edit_main_addbtn_text">Добавить блок</div>
-                <img src="images/icons/plus.png" alt="plus" class="edit_main_addbtn_btn">
+        <div class="edit_set_btns not_visible">
+            <div class="edit_set_btns_left">
+                <input class="edit_set_btns_left_block button_blue" type="button" value="Настрой блока">
+                <input class="edit_set_btns_left_content button_blue" type="button" value="Настрой контента">
             </div>
+            <div class="edit_set_btns_right">
+                <img src="images/icons/arrow_up.png" alt="arrow_up" class="edit_set_btns_right_arrow_up">
+                <img src="images/icons/arrow_down.png" alt="arrow_down" class="edit_set_btns_right_arrow_down">
+                <img src="images/icons/cross.png" alt="cross" class="edit_set_btns_right_cross">
+            </div>
+        </div>
+        
+        <div class="he" style="margin-bottom: 80px;"></div>
+
+        <div class=" edit_wrapper"></div>
+
+            
     </section>
+    <div class="edit_main_addbtn">
+        <div class="edit_main_addbtn_text">Добавить блок</div>
+        <img src="images/icons/plus.png" alt="plus" class="edit_main_addbtn_btn">
+    </div>
+
+
 
     <div class="pop_up_save disactive">
         <div class="save_back_cover">
@@ -86,22 +73,17 @@
                 <p class="set_block_inps_w_text">Ширина</p>
                 <input type="text" placeholder="В пикселях (px) или процентах (%)" class="set_block_inps_w_inp set_inp">
             </div>
-            <div class="set_block_inps_color_bg">
+            <!-- <div class="set_block_inps_color_bg">
                 <p class="set_block_inps_color_bg_text">Цвет</p>
                 <input type="color" placeholder="Цвет фона" class="set_block_inps_color_bg_inp set_inp">
-            </div>
+            </div> -->
             <div class="set_block_inps_pos">
                 <p class="set_block_inps_pos_text">Выравнивание</p>
                 <select name="position" id="position" class="set_block_inps_pos_select set_inp">
                     <option value="center">По центру</option>
-                    <option value="center">Верх центр</option>
-                    <option value="center">Низ центр</option>
-                    <option value="center">Лево центр</option>
-                    <option value="center">Право центр</option>
-                    <option value="center">1 угол</option>
-                    <option value="center">2 угол</option>
-                    <option value="center">3 угол</option>
-                    <option value="center">4 угол</option>
+                    <option value="start">Слева</option>
+                    <option value="end">Справа</option>
+                    <option value="justify">Весь объем</option>
                 </select>
             </div>
             <div class="set_block_inps_m">
@@ -135,6 +117,26 @@
         </div>
         <input type="button" value="Сохранить" class="set_content_save button_green"></input>
     </div>
+
+    <div class="add_content disactive">
+        <div class="add_content_cover">
+            <div class="add_content_window">
+                <div class="add_content_title">Добавить блок</div>
+                <div class="add_content_cross"><img src="images/icons/cross.png" alt="cross"></div>
+                <div class="add_content_blocks">
+                    <div class="add_content_blocks_block" id="text_b">
+                        <div class="add_content_blocks_block_title">Текстовый</div>
+                        <div class="add_content_blocks_block_image"><img src="images/Blocks/text.png" alt="block"></div>
+                    </div>
+                    <div class="add_content_blocks_block" id="title_b">
+                        <div class="add_content_blocks_block_title">Заголовок</div>
+                        <div class="add_content_blocks_block_image"><img src="images/Blocks/title.png" alt="block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     
     <script src="scripts/edit.js"></script>
 </body>

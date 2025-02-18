@@ -18,9 +18,9 @@
 
 .left{
     left: -100%;
-    transition: all linear .4s;
+    transition: all linear .5s;
 }
 .right{
     left: 0;
-    transition: all linear .4s;
+    transition: all linear .5s;
 }

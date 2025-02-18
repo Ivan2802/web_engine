@@ -10,6 +10,7 @@
 @import url('windows/succsessful.css');
 @import url('windows/error.css');
 @import url('windows/save.css');
+@import url('windows/add_block.css');
 
 .wrapper {
     max-width: var(--wrapper-width);
@@ -426,7 +427,16 @@
 /*  --------------------- SITE EDIT --------------------- */
 .edit{
     padding-top: 100px;
+    /* margin-bottom: 80px; */
 }
+
+/* wrapper для сайта пользователя */
+.edit_wrapper{
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
 .edit_main{
     background-color: #000;
     height: 100vh;
@@ -441,10 +451,10 @@
     justify-content: space-between;
     align-items: center; 
 }*/
-.edit .edit_set_btns{
+/* .edit .edit_set_btns{
     z-index: 50;
     position: relative;
-}
+} */
 .edit_main_image{
     position: absolute;
     opacity: .4;
@@ -453,10 +463,14 @@
     object-fit: cover;
 }
 .edit_set_btns{
+    width: 100%;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 40px 60px;
+    padding: 5px 10px;
+    /* position: relative; */
+    position: fixed;
 }
 .edit_set_btns_left{
     display: flex;
@@ -514,7 +528,7 @@
     width: 150px;
     border-radius: 30px;
     margin: 0 auto;
-    margin-top: -60px;
+    margin-top: 10px;
     background-color: var(--blue-background);
     text-align: center;
     padding: 10px 10px;
@@ -531,7 +545,6 @@
 /* ----- SET BLOCK POPUP ----- */
 .set_block{
     position: fixed;
-    /* left: 0; */
     top: 0;
     height: 100vh;
     width: 345px;
@@ -579,11 +592,10 @@
 /* -------------- */
 .set_content{
     position: fixed;
-    /* left: 0; */
     top: 0;
     height: 100vh;
     width: 345px;
-    background-color: var(--green-sets-content-color);
+    background-color: var(--green-sets-block-color);
     z-index: 101;
     padding: 30px 20px;
     display: flex;
@@ -611,7 +623,7 @@
     gap: 20px;
 }
 .set_content_inps_h_text, .set_content_inps_w_text, .set_content_inps_color_bg_text, .set_content_inps_pos_text, .set_content_inps_m_text{
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 .set_content_inps_color_bg_inp{
     width: 160px;
@@ -622,4 +634,15 @@
     background-color: #238D40;
     width: 150px;
     height: 40px;
+}
+.set_content_inps_titile_text, .set_content_inps_s_titile_text ,.set_content_inps_text_text, .set_content_inps_color_bg_text{
+    margin-bottom: 5px;;
+}
+.set_content_inps_text_inp{
+    background-color: var(--grey-color-proj-cards);
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 14px;
 }

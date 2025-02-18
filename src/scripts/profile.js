@@ -25,7 +25,7 @@ function generate_sites(data, sites_count){
         template.innerHTML += `<div class="profile_projects_card">
                     <div class="profile_projects_card_text">
                         <div class="profile_projects_card_title">${data[i].name}</div>
-                        <div class="profile_projects_card_link">${data[i].link}</div>
+                        <div class="profile_projects_card_link"> <a href="${data[i].link}">${data[i].link.slice(54)}</a>  </div>
                     </div>
                     <div class="profile_projects_buttons">
                         <input type="button" value="Редактировать" class="button_green profile_projects_buttons_edit">

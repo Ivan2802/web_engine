@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
                 nameSiteInput.value = data2.name
                 statusSite.innerHTML = data2.status
 
-                // ---------- Созранить изменения
+                // ---------- Сохранить изменения
                 btnSaveChanges = document.querySelector('.settings_main_input_name_save ')
                 btnSaveChanges.addEventListener('click', () => {
                     return fetch('http://127.0.0.1:8000/api/change_settings', {

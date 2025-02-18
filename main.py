@@ -56,10 +56,29 @@ def decode64(string):
     return base64.b64decode(string.encode('utf-8')).decode('utf-8')
 
 # import json
+
+
+# Функция создания файла сайта и его имени # уникальное название из-за id в DB User
+def create_filename(user_name, user_id, site_id):
+    file_name = str(user_id) + str(user_name) + str(site_id)
+    file_name = file_name.replace('=', '')
+    return file_name
+def create_file(file_name, site_name):
+    with open(f'./src/user_sites/{file_name}.html', 'w') as file:
+        file.write(f'''<!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>{site_name}</title>
+                        </head>
+                        <body>
+                            
+                        </body>
+                        </html>''')
+
 @app.post('/api/create_site')
 async def create_site(data = Body(), db: Session = Depends(get_db)):
-    # user_name = json.loads(data)['user']['name'] ##### ----- mode: 'no-cors'
-    # user_password = json.loads(data)['user']['password']
     user_name = data['user']['name']
     user_password = data['user']['password']
     if db.query(User).filter(User.name == decode64(user_name)).first() != None and db.query(User).filter(User.password == decode64(user_password)).first() != None:
@@ -68,6 +87,17 @@ async def create_site(data = Body(), db: Session = Depends(get_db)):
         db.add(site)
         db.commit()
         db.refresh(site)
+
+        # !!! Локальная ссылка
+        fn =  create_filename(user_name, user_id, site.id)
+
+        site.link = f'file:///C:/Users/Иваныч/Desktop/Engine/src/user_sites/{fn}.html'
+        db.commit()
+        db.refresh(site)
+
+        # Создание файла с сайтом
+        create_file(fn, site.name)
+
     else: return {'message':'error'}
     return site
 
