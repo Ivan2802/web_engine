@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi import Depends, Body, Path, Query
+from fastapi import Depends, Body, Response, Path, Query
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from database import *
@@ -65,17 +65,7 @@ def create_filename(user_name, user_id, site_id):
     return file_name
 def create_file(file_name, site_name):
     with open(f'./src/user_sites/{file_name}.html', 'w') as file:
-        file.write(f'''<!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>{site_name}</title>
-                        </head>
-                        <body>
-                            
-                        </body>
-                        </html>''')
+        file.write(f'''''')
 
 @app.post('/api/create_site')
 async def create_site(data = Body(), db: Session = Depends(get_db)):
@@ -143,9 +133,57 @@ def set_site(data = Body(), db: Session = Depends(get_db)):
 
 
 
+# попытка написать оброботчик префлайтов корсов для ориджина на *
+# @app.options('/api/get_site_id_fromDB')
+# def f():
+#     return Response(headers={"access-control-allow-headers": "access-control-allow-origin", "access-control-allow-origin": "*"})
 
 @app.post('/api/get_site_id_fromDB')
-def get_site_id_fromDB(data = Body(), db: Session = Depends(get_db)):
+async def get_site_id_fromDB(data = Body(), db: Session = Depends(get_db)):
     name = data['name']
-    site = db.query(Site).filter(Site.name == name).first()
-    return site
+    site_id = db.query(Site).filter(Site.name == name).first().id
+
+    response_data = {'id': site_id, 'page': []}
+
+    user_name = data['username']
+    user_password = data['password']
+    if db.query(User).filter(User.name == decode64(user_name)).first() != None and db.query(User).filter(User.password == decode64(user_password)).first() != None:
+        user_id = int(db.query(User).filter(User.name == decode64(user_name)).first().id)
+
+        file_name = create_filename(user_name, user_id, site_id)
+        response_data['page'] = read_file(file_name)
+        return response_data
+    else:
+        return {'message':'error WITH REGISTRATION'}
+    return {"M":"OK"}
+
+# ВЫНОСИТЬ ФУНКЦИИ РАБОТЫ С ФАЙЛАМИ ОТДЕЛЬНО ИНАЧЕ НЕ ПОЛУЧАЕТСЯ И КОРС БЛОЧИТ
+def read_file(f_name):
+    with open(f'./src/user_sites/{f_name}.html', 'r') as file:
+        
+        for_PAGE_DATA = []
+        lines = file.readlines()
+        for i in range(0, len(lines)):
+            for_PAGE_DATA.append(lines[i])
+
+        return for_PAGE_DATA
+
+
+import json
+@app.post('/api/load_PAGE_DATA_to_server')
+async def load_PAGE_DATA_to_server(data = Body(), db: Session = Depends(get_db)):
+    user_name = json.loads(data)['username']
+    user_password = json.loads(data)['password']
+    if db.query(User).filter(User.name == decode64(user_name)).first() != None and db.query(User).filter(User.password == decode64(user_password)).first() != None:
+        user_id = int(db.query(User).filter(User.name == decode64(user_name)).first().id)
+        site_id = int(json.loads(data)['site_id'])
+        
+        file_name = create_filename(user_name, user_id, site_id)
+        add_to_file(json.loads(data)['main'], file_name)
+    else:
+        return {'message': 'error'}
+
+def add_to_file(data, file_name):
+    with open(f'./src/user_sites/{file_name}.html', 'w') as file:
+        for i in range(len(data)):
+            file.write(data[i]['content']['what'])

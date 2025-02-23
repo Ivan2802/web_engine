@@ -1,10 +1,31 @@
 // --------------------------------------------------------------
 // При загрузке страницы
 PAGE_DATA = [] // = Массив для отправки на сервер при сохранении
+SITE_ID = 0
+INNER_PAGE = ''
+MAX_BLOCK_INDEX = 0
+
+// Структура PAGE_DATA лога
+// [
+//     {
+//         'site_name':'name',
+//         'block_id': 0,
+//         'content': {
+//              'type': 'add',
+//              'what': ``
+//          }
+//     }
+// ]
+
+
+// ПРИ ИЗМЕНЕИЕ БЛОКОВ ЗАНОСИТЬ ЭТИ ИЗМЕНЕНИЯ В PAGE_DATA
+
 // ----- Получение id сайта из БД sites
 function get_site_id_fromDB(){
     data = {
-        name: localStorage.getItem('site_name')
+        name: localStorage.getItem('site_name'),
+        username: localStorage.getItem('name'),
+        password: localStorage.getItem('password')
     }
     return fetch('http://127.0.0.1:8000/api/get_site_id_fromDB', {
         method: 'POST', 
@@ -14,9 +35,38 @@ function get_site_id_fromDB(){
 }
 window.addEventListener('load', () => {
     get_site_id_fromDB()
-        .then((data) => {return data.json()})
         .then((data) => {
-            console.log(data)
+            return data.json()})
+        .then((data) => {
+            SITE_ID = data.id
+            // ДОбавление сущ блоков в PAGE_DATA
+            BLOCK_COUNTER = 0
+            for (let i = 0; i < data.page.length; i++) {
+                PAGE_DATA.push({
+                    'block_id': BLOCK_COUNTER,
+                    'content': {
+                        'type': 'add',
+                        'what': data.page[i]
+                    }
+                })
+                BLOCK_COUNTER += 1
+            }
+
+            sectionForBlocks = document.querySelector('.edit_wrapper')
+            // Вставка загруженных блоков с сервера
+            for (let i = 0; i < PAGE_DATA.length; i++) {
+
+                const parser = new DOMParser()
+                html_block = parser.parseFromString(PAGE_DATA[i].content.what, "text/html").querySelector('.block_to_edit')
+                console.log(html_block)
+                html_block.setAttribute('id', PAGE_DATA[i].block_id)
+                sectionForBlocks.append(html_block)
+            }
+            MAX_BLOCK_INDEX = PAGE_DATA.length
+            vizSetBlockBTN()
+
+            console.log(PAGE_DATA, data)
+            
         })
 })
 
@@ -67,7 +117,7 @@ btnClosePopUp.addEventListener('click', () => {
 })
 
 // ------------------------
-// ---- Всплытие кнопок при наведегии на блок -----
+// ---- Всплытие кнопок при наведении на блок -----
 editButtons = document.querySelector('.edit_set_btns')
 addNewBlockBtn = document.querySelector('.edit_main_addbtn')
 
@@ -78,6 +128,9 @@ function vizSetBlockBTN(){
     mainBlocks = document.querySelectorAll('.block_to_edit')
     for (let i = 0; i < mainBlocks.length; i++) {
         mainBlocks[i].addEventListener('click', () => {
+
+            // Добавлять значение BLOCK_COUNTER
+
             show(editButtons)
             REDACTED_BLOCK_INDEX = i
             
@@ -89,7 +142,6 @@ function vizSetBlockBTN(){
                 }               
             }
         } )
-        
     }
 }
 
@@ -99,6 +151,17 @@ function vizSetBlockBTN(){
 // Функционал кнопок каждого отдельного длока
 crossBTN_block = document.querySelector('.edit_set_btns_right_cross')
 crossBTN_block.addEventListener('click', () => {
+
+    id_to_del = mainBlocks[REDACTED_BLOCK_INDEX].id
+    new_PAGE_DATA = []
+    for (let i = 0; i < PAGE_DATA.length; i++) {
+        if (PAGE_DATA[i].block_id != id_to_del){
+            new_PAGE_DATA.push(PAGE_DATA[i])
+        }
+    }
+    PAGE_DATA = new_PAGE_DATA
+
+
     mainBlocks[REDACTED_BLOCK_INDEX].remove()
     vizSetBlockBTN()
     if (mainBlocks.length == 0){
@@ -234,29 +297,79 @@ addNewBlockBtn.addEventListener('click', () => {
     openPopUp(popupAddBlock)
 })
 
-
+// MAIN FUNCTION
 // Добавление собственно блока на страницу из списка добавления блоков
 blocks = {
     'title_b': document.querySelector('#title_b'),
     'text_b': document.querySelector('#text_b'),
 }
+BLOCK_COUNTER = 0
 ks = Object.keys(blocks)
 for (let i = 0; i < ks.length; i++) {
     blocks[ks[i]].addEventListener('click', () => {
         closePopUp(popupAddBlock)
+        MAX_BLOCK_INDEX += 1
         visualizateBlock(ks[i])
+        document.querySelector('#_').id = MAX_BLOCK_INDEX
         vizSetBlockBTN()
-        // mainBlocks[mainBlocks.length - 1].style.border = '5px solid rgb(8, 153, 8)';
-        // show(editButtons)
+        
+        PAGE_DATA.push({
+            'block_id': BLOCK_COUNTER,
+            'content': {
+                'type': 'add',
+                'what': TEMPLATE_BLOCKS[ks[i]]
+            }
+        })
+        BLOCK_COUNTER += 1
     })
 }
-sectionForBlocks = document.querySelector('.edit_wrapper')
+
 TEMPLATE_BLOCKS = {
-    'title_b': `<div class="title_b block_to_edit" style="cursor:pointer;border:1px solid black;background-color:#fff;padding:20px;"> <h1 style="text-align:center;font-size:40px;">Title</h1> <h2 style="text-align:center;font-size:20px;">Subtitle</h2><p style="font-size:20px;text-align:center;" ></p> </div>`,
-    'text_b': `<div class="text_b block_to_edit" style="cursor:pointer;border:1px solid black;background-color:#fff;padding:20px;"><h1 style="font-size:40px;"></h1><h2 style="font-size:20px;"></h2> <p style="font-size:20px;" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, molestias architecto omnis eveniet alias error laudantium nemo libero praesentium odit harum asperiores, tempore nesciunt obcaecati repellendus. Saepe nihil quae laudantium!</p> </div>`,
+    'title_b': `<div class="title_b block_to_edit" id="_" style="cursor:pointer;border:1px solid black;background-color:#fff;padding:20px;"> <h1 style="text-align:center;font-size:40px;">Title</h1> <h2 style="text-align:center;font-size:20px;">Subtitle</h2><p style="font-size:20px;text-align:center;" ></p> </div>\n`,
+    'text_b': `<div class="text_b block_to_edit" id="_" style="cursor:pointer;border:1px solid black;background-color:#fff;padding:20px;"><h1 style="font-size:40px;"></h1><h2 style="font-size:20px;"></h2> <p style="font-size:20px;" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, molestias architecto omnis eveniet alias error laudantium nemo libero praesentium odit harum asperiores, tempore nesciunt obcaecati repellendus. Saepe nihil quae laudantium!</p> </div>\n`,
 
 }
 function visualizateBlock(block){
     sectionForBlocks.insertAdjacentHTML('beforeend', TEMPLATE_BLOCKS[block])
     // PAGE_DATA.push(TEMPLATE_BLOCKS[block])
+}
+
+// -----------------------------
+// СОХРАНЕНИЕ локальных изменений и отправка их на сервер
+saveBTN = document.querySelector('.header_buttons__button_save')
+saveBTN.addEventListener('click', () => {
+    console.log(PAGE_DATA)
+    load_PAGE_DATA_to_server(PAGE_DATA)
+
+    // for (let i = 0; i < PAGE_DATA.length; i++) {
+    //     load_PAGE_DATA_to_server(i)
+    // }
+
+})
+quitNoBTN = document.querySelector('.save_window_inputs_button_n')
+quitNoBTN.addEventListener('click', () => {
+    PAGE_DATA = []
+    window.location.href = './profile.html'
+})
+quitYesBTN = document.querySelector('.save_window_inputs_button_y')
+quitYesBTN.addEventListener('click', () => {
+    // load_PAGE_DATA_to_server()
+    PAGE_DATA = []
+    window.location.href = './profile.html'
+})
+
+
+function load_PAGE_DATA_to_server(index){
+    data = {
+        'main': index,
+        'username': localStorage.getItem('name'),
+        'password': localStorage.getItem('password'),
+        'site_id': SITE_ID
+    }
+    return fetch('http://127.0.0.1:8000/api/load_PAGE_DATA_to_server', {
+        method: 'POST', 
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+        mode: 'no-cors'
+    })
 }
