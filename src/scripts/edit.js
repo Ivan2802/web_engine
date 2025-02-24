@@ -171,6 +171,22 @@ crossBTN_block.addEventListener('click', () => {
 moveDownBTN_block = document.querySelector('.edit_set_btns_right_arrow_down')
 moveDownBTN_block.addEventListener('click', () => {
     rplsed = sectionForBlocks.replaceChild(mainBlocks[REDACTED_BLOCK_INDEX], mainBlocks[REDACTED_BLOCK_INDEX + 1])
+    id_to_up = rplsed.id
+    id_to_down = mainBlocks[REDACTED_BLOCK_INDEX].id
+
+
+    new_PAGE_DATA = []
+    for (let i = 0; i < mainBlocks.length; i++) {
+        if (mainBlocks[i].id != id_to_down && mainBlocks[i].id != id_to_up){
+            new_PAGE_DATA.push(PAGE_DATA[i])
+        }
+        if(mainBlocks[i].id == id_to_down){
+            new_PAGE_DATA.push(PAGE_DATA[i + 1])
+            new_PAGE_DATA.push(PAGE_DATA[i])
+        }
+    }
+    PAGE_DATA = new_PAGE_DATA
+
     sectionForBlocks.insertBefore(rplsed, mainBlocks[REDACTED_BLOCK_INDEX])
     REDACTED_BLOCK_INDEX += 1
     vizSetBlockBTN()
@@ -178,6 +194,22 @@ moveDownBTN_block.addEventListener('click', () => {
 moveUpBTN_block = document.querySelector('.edit_set_btns_right_arrow_up')
 moveUpBTN_block.addEventListener('click', () => {
     rplsed = sectionForBlocks.replaceChild(mainBlocks[REDACTED_BLOCK_INDEX], mainBlocks[REDACTED_BLOCK_INDEX - 1])
+    id_to_down = rplsed.id
+    id_to_up = mainBlocks[REDACTED_BLOCK_INDEX].id
+
+
+    new_PAGE_DATA = []
+    for (let i = 0; i < mainBlocks.length; i++) {
+        if (mainBlocks[i].id != id_to_up && mainBlocks[i].id != id_to_down){
+            new_PAGE_DATA.push(PAGE_DATA[i])
+        }
+        if(mainBlocks[i].id == id_to_down){
+            new_PAGE_DATA.push(PAGE_DATA[i + 1])
+            new_PAGE_DATA.push(PAGE_DATA[i])
+        }
+    }
+    PAGE_DATA = new_PAGE_DATA
+
     mainBlocks[REDACTED_BLOCK_INDEX].after(rplsed)
     REDACTED_BLOCK_INDEX -= 1
     vizSetBlockBTN()
@@ -248,7 +280,6 @@ setBlockCross.addEventListener('click', () => {
 })
 sbHeight = document.querySelector('.set_block_inps_h_inp')
 sbWidth = document.querySelector('.set_block_inps_w_inp')
-// sbColor = document.querySelector('.set_block_inps_color_bg_inp')
 sbLocation = document.querySelector('.set_block_inps_pos_select')
 sbPaddings = document.querySelector('.set_block_inps_m_inp')
 function inject_block_block(){
