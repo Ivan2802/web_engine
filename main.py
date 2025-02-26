@@ -155,7 +155,6 @@ async def get_site_id_fromDB(data = Body(), db: Session = Depends(get_db)):
         return response_data
     else:
         return {'message':'error WITH REGISTRATION'}
-    return {"M":"OK"}
 
 # ВЫНОСИТЬ ФУНКЦИИ РАБОТЫ С ФАЙЛАМИ ОТДЕЛЬНО ИНАЧЕ НЕ ПОЛУЧАЕТСЯ И КОРС БЛОЧИТ
 def read_file(f_name):

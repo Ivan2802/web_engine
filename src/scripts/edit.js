@@ -5,6 +5,8 @@ SITE_ID = 0
 INNER_PAGE = ''
 MAX_BLOCK_INDEX = 0
 
+const parser = new DOMParser()
+
 // Структура PAGE_DATA лога
 // [
 //     {
@@ -56,7 +58,6 @@ window.addEventListener('load', () => {
             // Вставка загруженных блоков с сервера
             for (let i = 0; i < PAGE_DATA.length; i++) {
 
-                const parser = new DOMParser()
                 html_block = parser.parseFromString(PAGE_DATA[i].content.what, "text/html").querySelector('.block_to_edit')
                 console.log(html_block)
                 html_block.setAttribute('id', PAGE_DATA[i].block_id)
@@ -253,10 +254,42 @@ scSaveBTN.addEventListener('click', () => {
         mainBlocks[REDACTED_BLOCK_INDEX].querySelector('h2').innerHTML = scSubtitle.value
         mainBlocks[REDACTED_BLOCK_INDEX].querySelector('h1').style.color = scColor.value
         mainBlocks[REDACTED_BLOCK_INDEX].querySelector('h2').style.color = scColor.value
+/// ----- СОХРАНЕНИЕ ИЗМЕНЕНИЙ В PAGE_DATA
+        for (let i = 0; i < PAGE_DATA.length; i++) {
+            if(PAGE_DATA[i].block_id == mainBlocks[REDACTED_BLOCK_INDEX].id){
+
+                html_block = parser.parseFromString(PAGE_DATA[i].content.what, "text/html").querySelector('.block_to_edit')
+                // -------------- CAHNGE html_block ---------------------
+                html_block.querySelector('h1').innerHTML = scTitle.value
+                html_block.querySelector('h2').innerHTML = scSubtitle.value
+                html_block.querySelector('h1').style.color = scColor.value
+                html_block.querySelector('h2').style.color = scColor.value
+
+                to_what = `${html_block.outerHTML}\n`
+                PAGE_DATA[i].content.what = to_what
+/// -------------------------------
+            }
+        }
+
     }catch{}
     try{
         mainBlocks[REDACTED_BLOCK_INDEX].querySelector('p').innerHTML = scText.value
         mainBlocks[REDACTED_BLOCK_INDEX].querySelector('p').style.color = scColor.value
+/// ----- СОХРАНЕНИЕ ИЗМЕНЕНИЙ В PAGE_DATA
+        for (let i = 0; i < PAGE_DATA.length; i++) {
+            if(PAGE_DATA[i].block_id == mainBlocks[REDACTED_BLOCK_INDEX].id){
+                
+                html_block = parser.parseFromString(PAGE_DATA[i].content.what, "text/html").querySelector('.block_to_edit')
+                // -------------- CAHNGE html_block ---------------------
+                html_block.querySelector('p').innerHTML = scText.value
+                html_block.querySelector('p').style.color = scColor.value
+
+                to_what = `${html_block.outerHTML}\n`
+                PAGE_DATA[i].content.what = to_what
+
+            }
+        }
+/// ------------------------------
     }catch{}
 
     hide(setContent, 1)
@@ -304,12 +337,52 @@ sbSave.addEventListener('click', () => {
         mainBlocks[REDACTED_BLOCK_INDEX].querySelector('p').style.textAlign = sbLocation.value
         mainBlocks[REDACTED_BLOCK_INDEX].querySelector('p').style.padding = sbPaddings.value
         mainBlocks[REDACTED_BLOCK_INDEX].style.alignItems = sbLocation.value
+
+        // ----- СОХРАНЕНИЕ ИЗМЕНЕНИЙ В PAGE_DATA
+        for (let i = 0; i < PAGE_DATA.length; i++) {
+            if(PAGE_DATA[i].block_id == mainBlocks[REDACTED_BLOCK_INDEX].id){
+                
+                html_block = parser.parseFromString(PAGE_DATA[i].content.what, "text/html").querySelector('.block_to_edit')
+                // -------------- CAHNGE html_block ---------------------
+                html_block.querySelector('p').style.height = sbHeight.value
+                html_block.querySelector('p').style.width = sbWidth.value 
+                html_block.querySelector('p').style.textAlign = sbLocation.value
+                html_block.querySelector('p').style.padding = sbPaddings.value
+                html_block.style.alignItems = sbLocation.value
+
+                to_what = `${html_block.outerHTML}\n`
+                PAGE_DATA[i].content.what = to_what
+
+            }
+        }
+        // -------------------------------------
+
     }catch{
         mainBlocks[REDACTED_BLOCK_INDEX].style.height = sbHeight.value
         mainBlocks[REDACTED_BLOCK_INDEX].style.width = sbWidth.value
         mainBlocks[REDACTED_BLOCK_INDEX].style.textAlign = sbLocation.value
         mainBlocks[REDACTED_BLOCK_INDEX].style.textAlign = sbLocation.value
         mainBlocks[REDACTED_BLOCK_INDEX].style.padding = sbPaddings.value
+
+        // ----- СОХРАНЕНИЕ ИЗМЕНЕНИЙ В PAGE_DATA
+        for (let i = 0; i < PAGE_DATA.length; i++) {
+            if(PAGE_DATA[i].block_id == mainBlocks[REDACTED_BLOCK_INDEX].id){
+                
+                html_block = parser.parseFromString(PAGE_DATA[i].content.what, "text/html").querySelector('.block_to_edit')
+                // -------------- CAHNGE html_block ---------------------
+                html_block.style.height = sbHeight.value
+                html_block.style.width = sbWidth.value
+                html_block.style.textAlign = sbLocation.value
+                html_block.style.textAlign = sbLocation.value
+                html_block.style.padding = sbPaddings.value
+
+                to_what = `${html_block.outerHTML}\n`
+                PAGE_DATA[i].content.what = to_what
+
+            }
+        }
+        // -------------------------------------
+
     }
     hide(setBlock, 1)
     sbHeight.value = ''
@@ -356,8 +429,8 @@ for (let i = 0; i < ks.length; i++) {
 }
 
 TEMPLATE_BLOCKS = {
-    'title_b': `<div class="title_b block_to_edit" id="_" style="cursor:pointer;border:1px solid black;background-color:#fff;padding:20px;"> <h1 style="text-align:center;font-size:40px;">Title</h1> <h2 style="text-align:center;font-size:20px;">Subtitle</h2><p style="font-size:20px;text-align:center;" ></p> </div>\n`,
-    'text_b': `<div class="text_b block_to_edit" id="_" style="cursor:pointer;border:1px solid black;background-color:#fff;padding:20px;"><h1 style="font-size:40px;"></h1><h2 style="font-size:20px;"></h2> <p style="font-size:20px;" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, molestias architecto omnis eveniet alias error laudantium nemo libero praesentium odit harum asperiores, tempore nesciunt obcaecati repellendus. Saepe nihil quae laudantium!</p> </div>\n`,
+    'title_b': `<div class="title_b block_to_edit" id="_" style="cursor:pointer;border:0.5px solid black;background-color:#fff;padding:20px;"> <h1 style="text-align:center;font-size:40px;">Title</h1> <h2 style="text-align:center;font-size:20px;">Subtitle</h2><p style="font-size:20px;text-align:center;" ></p> </div>\n`,
+    'text_b': `<div class="text_b block_to_edit" id="_" style="cursor:pointer;border:0.5px solid black;background-color:#fff;padding:20px;"><h1 style="font-size:40px;"></h1><h2 style="font-size:20px;"></h2> <p style="font-size:20px;" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, molestias architecto omnis eveniet alias error laudantium nemo libero praesentium odit harum asperiores, tempore nesciunt obcaecati repellendus. Saepe nihil quae laudantium!</p> </div>\n`,
 
 }
 function visualizateBlock(block){
@@ -369,12 +442,17 @@ function visualizateBlock(block){
 // СОХРАНЕНИЕ локальных изменений и отправка их на сервер
 saveBTN = document.querySelector('.header_buttons__button_save')
 saveBTN.addEventListener('click', () => {
-    console.log(PAGE_DATA)
-    load_PAGE_DATA_to_server(PAGE_DATA)
-
+    // УДАЛЕНИЕ ЛИШНИХ СТИЛЕЙ
     // for (let i = 0; i < PAGE_DATA.length; i++) {
-    //     load_PAGE_DATA_to_server(i)
+    //     html_block = parser.parseFromString(PAGE_DATA[i].content.what, "text/html").querySelector('.block_to_edit')
+
+    //     html_block.style.cursor = 'auto'
+    //     html_block.style.border = '0px solid #fff'
+
+    //     to_what = `${html_block.outerHTML}\n`
+    //     PAGE_DATA[i].content.what = to_what
     // }
+    load_PAGE_DATA_to_server(PAGE_DATA)
 
 })
 quitNoBTN = document.querySelector('.save_window_inputs_button_n')
