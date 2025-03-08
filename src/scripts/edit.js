@@ -406,6 +406,7 @@ addNewBlockBtn.addEventListener('click', () => {
 blocks = {
     'title_b': document.querySelector('#title_b'),
     'text_b': document.querySelector('#text_b'),
+    'columns_b': document.querySelector('#columns_b')
 }
 BLOCK_COUNTER = 0
 ks = Object.keys(blocks)
@@ -431,7 +432,7 @@ for (let i = 0; i < ks.length; i++) {
 TEMPLATE_BLOCKS = {
     'title_b': `<div class="title_b block_to_edit" id="_" style="cursor:pointer;border:0.5px solid black;background-color:#fff;padding:20px;"> <h1 style="text-align:center;font-size:40px;">Title</h1> <h2 style="text-align:center;font-size:20px;">Subtitle</h2><p style="font-size:20px;text-align:center;" ></p> </div>\n`,
     'text_b': `<div class="text_b block_to_edit" id="_" style="cursor:pointer;border:0.5px solid black;background-color:#fff;padding:20px;"><h1 style="font-size:40px;"></h1><h2 style="font-size:20px;"></h2> <p style="font-size:20px;" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, molestias architecto omnis eveniet alias error laudantium nemo libero praesentium odit harum asperiores, tempore nesciunt obcaecati repellendus. Saepe nihil quae laudantium!</p> </div>\n`,
-
+    'columns_b': `<div class="columns_b block_to_edit" id="_" style="cursor:pointer;border:0.5px solid black;padding:20px;display:flex;justify-content:center;gap:80px;"><div style="width:500px;"><h1 style="text-align:center;font-size:20px;">Subtitle</h1> <p style="font-size:20px;text-align:center;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus eos assumenda odio alias, quia aperiam accusantium iure asperiores molestias mollitia</p></div><div style="width:500px;"><h1 style="text-align:center;font-size:20px;">Subtitle</h1> <p style="font-size:20px;text-align:center;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus eos assumenda odio alias, quia aperiam accusantium iure asperiores molestias mollitia</p></div></div>\n`
 }
 function visualizateBlock(block){
     sectionForBlocks.insertAdjacentHTML('beforeend', TEMPLATE_BLOCKS[block])
@@ -457,14 +458,12 @@ saveBTN.addEventListener('click', () => {
 })
 quitNoBTN = document.querySelector('.save_window_inputs_button_n')
 quitNoBTN.addEventListener('click', () => {
-    PAGE_DATA = []
     window.location.href = './profile.html'
 })
 quitYesBTN = document.querySelector('.save_window_inputs_button_y')
 quitYesBTN.addEventListener('click', () => {
-    // load_PAGE_DATA_to_server()
-    PAGE_DATA = []
     window.location.href = './profile.html'
+    load_PAGE_DATA_to_server(PAGE_DATA)
 })
 
 
