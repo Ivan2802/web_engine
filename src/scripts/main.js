@@ -123,26 +123,7 @@ function add_user(){
         body: JSON.stringify(user_data)
     })
 }
-// ----- Существует ли пользователь
-// function is_user_exist(){
-//     user_data = {
-//         email: register_email.value,   
-//     }
-//     fetch('http://127.0.0.1:8000/api/check_is_user_exist', {
-//         method: 'POST',
-//         headers: { "Accept": "application/json", "Content-Type": "application/json" },
-//         body: JSON.stringify(user_data)
-//     })
-//         .then((data) => {return data.json()})
-//         .then((data) => {
-//             console.log(data.message == 'error')
-//             if (data.message == 'error'){
-//                 return false
-//             } else {
-//                 return true
-//             }
-//         })
-// }
+
 // ----- Нажатие на кнопку регистрации
 register_reg_user_btn.addEventListener('click', async () => {
     if (true){
@@ -233,3 +214,24 @@ sigin_reg_user_btn.addEventListener('click', () => {
         return error_s()
     }
 })
+
+// ----- Существует ли пользователь
+// function is_user_exist(){
+//     user_data = {
+//         email: register_email.value,   
+//     }
+//     fetch('http://127.0.0.1:8000/api/check_is_user_exist', {
+//         method: 'POST',
+//         headers: { "Accept": "application/json", "Content-Type": "application/json" },
+//         body: JSON.stringify(user_data)
+//     })
+//         .then((data) => {return data.json()})
+//         .then((data) => {
+//             console.log(data.message == 'error')
+//             if (data.message == 'error'){
+//                 return false
+//             } else {
+//                 return true
+//             }
+//         })
+// }

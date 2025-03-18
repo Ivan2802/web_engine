@@ -1,0 +1,22 @@
+function check_set() {
+    return fetch('https://369.pelikan.online/room/api/user/presence-check-set', {
+        method: 'POST',
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({continueCheck: false, userId: 469078})
+    })
+}
+function check_res(cID){
+    user_data = {
+        checkId: cID,
+        presence: 1
+    }
+    return fetch('https://369.pelikan.online/room/api/user/presence-check-result', {
+        method: 'POST',
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify(user_data)
+    })
+}
+check_set().then((data) => {return data.json()}).then((data) => {
+    console.log(data)
+    check_res(data.checkId).then((data) => {return data.json()}).then((data) => {console.log(data)})
+})

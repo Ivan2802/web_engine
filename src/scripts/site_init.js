@@ -84,7 +84,6 @@ multilink.addEventListener('click', () => {
 function add_site_to_db(){
     data = {
         name: siteName.value,
-        // template: siteSelectedTemplate.value,
         template: 'template',
         link: 'https://your_easy_site/name.html',
         status: 'Local',

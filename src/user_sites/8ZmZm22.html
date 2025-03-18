@@ -1,0 +1,67 @@
+<div class="quote_b block_to_edit" id="_" style="cursor:pointer;border:0.5px solid black;background-color:#fff;padding:20px;"><h1 style="font-size:40px;"></h1><h2 style="font-size:20px;"></h2> <p style="font-size: 40px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, molestias architecto omnis eveniet alias error laudantium nemo libero praesentium odit harum asperiores, tempore nesciunt obcaecati repellendus. Saepe nihil quae laudantium!</p> </div>
+<div class="quote_b block_to_edit" id="_" style="cursor: pointer;border: 0.5px solid black;background-color: rgb(255, 255, 255);padding: 20px;align-items: center;"> <blockquote style="text-align: center; font-size: 100px;"></blockquote><p style="font-size:20px;text-align:center;"></p> </div>
+<div class="picture_b block_to_edit" id="_"  style="cursor: pointer;border: 0.5px solid black;background-color: rgb(255, 255, 255);padding: 20px; align-items: center;"><h1 style="text-align: center; font-size: 50px;"></h1><p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius, eaque.</p><img src="../images/logo.png" alt=""></div>
+
+
+
+<div class="set_content left">
+    <img src="images/icons/cross.png" alt="cross" class="set_content_img_cross">
+    <div class="set_content_title">Настройка контента</div>
+    <div class="set_content_inps">
+        <div class="set_content_inps_titile">
+            <p class="set_content_inps_titile_text">Загрузить картинку</p>
+            <input type="file" class="set_content_inps_pic_inp set_inp" onchange="load_picture_to_server()">
+        </div>
+    </div>
+    <input type="button" value="Сохранить" class="set_content_save button_green"></input>
+</div>
+
+
+
+<div class="set_content left">
+    <img src="images/icons/cross.png" alt="cross" class="set_content_img_cross">
+    <div class="set_content_title">Настройка контента</div>
+    <div class="set_content_inps">
+        <div class="set_content_inps_titile">
+            <p class="set_content_inps_titile_text">Заголовок 1 колонки</p>
+            <input type="text" placeholder="Заголовок" class="set_content_inps_h_inp1 set_inp">
+        </div>
+        <div class="set_content_inps_s_titile">
+            <p class="set_content_inps_s_titile_text">Подзаголовок 1 колонки</p>
+            <input type="text" placeholder="Подзаголовок" class="set_content_inps_w_inp1 set_inp">
+        </div>
+        <div class="set_content_inps_text">
+            <p class="set_content_inps_text_text">Текст 1 колонки</p>
+            <textarea name="text" id="text" placeholder="Введите текст" class="set_content_inps_text_inp1"></textarea>
+        </div>
+        <div class="set_content_inps_color_bg">
+            <p class="set_content_inps_color_bg_text">Цвет 1 колонки</p>
+            <input type="color" placeholder="Цвет фона" class="set_content_inps_color_bg_inp1 set_inp">
+        </div>
+        <div class="set_content_inps_titile">
+            <p class="set_content_inps_titile_text">Заголовок 2 колонки</p>
+            <input type="text" placeholder="Заголовок" class="set_content_inps_h_inp2 set_inp">
+        </div>
+        <div class="set_content_inps_s_titile">
+            <p class="set_content_inps_s_titile_text">Подзаголовок 2 колонки</p>
+            <input type="text" placeholder="Подзаголовок" class="set_content_inps_w_inp2 set_inp">
+        </div>
+        <div class="set_content_inps_text">
+            <p class="set_content_inps_text_text">Текст 2 колонки</p>
+            <textarea name="text" id="text" placeholder="Введите текст" class="set_content_inps_text_inp2"></textarea>
+        </div>
+        <div class="set_content_inps_color_bg">
+            <p class="set_content_inps_color_bg_text">Цвет 2 колонки</p>
+            <input type="color" placeholder="Цвет фона" class="set_content_inps_color_bg_inp2 set_inp">
+        </div>
+    </div>
+    <input type="button" value="Сохранить" class="set_content_save button_green"></input>
+</div>
+
+
+
+
+
+'quote_b': `<div class="quote_b block_to_edit" id="_" style="cursor: pointer;border: 0.5px solid black;background-color: rgb(255, 255, 255);padding: 20px;align-items: center;"> <blockquote style="text-align: center; font-size: 100px;"></blockquote><p style="font-size:20px;text-align:center;"></p> </div>\n`
+,
+    'quote_b': document.querySelector('#quote_b')

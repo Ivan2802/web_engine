@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi import Depends, Body, Response, Path, Query
+from fastapi import Depends, Body, File, Form, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from database import *
@@ -58,7 +58,7 @@ def decode64(string):
 # import json
 
 
-# Функция создания файла сайта и его имени # уникальное название из-за id в DB User
+# Функции создания файла сайта и его имени 
 def create_filename(user_name, user_id, site_id):
     file_name = str(user_id) + str(user_name) + str(site_id)
     file_name = file_name.replace('=', '')
@@ -186,3 +186,38 @@ def add_to_file(data, file_name):
     with open(f'./src/user_sites/{file_name}.html', 'w') as file:
         for i in range(len(data)):
             file.write(data[i]['content']['what'])
+
+# Получение картинки
+# @app.post('/api/load_picture')
+# def load_picture(data = Body()):
+#     pict = data['image']
+#     return {'message':pict}
+
+
+# @app.post("/file/upload-file")
+# def upload_file(file: UploadFile):
+#   return file
+
+@app.post('/api/load_picture')
+async def create_upload_file(uploaded_file: UploadFile = File(...)):    
+    file_location = f"./src/user_images/{uploaded_file.filename}"
+    print(uploaded_file.filename)
+    with open(file_location, "wb+") as file_object:
+        file_object.write(uploaded_file.file.read())
+    return {"info": f"file '{uploaded_file.filename}' saved at '{file_location}'"}
+
+# @app.post('/api/load_picture')
+# async def create_upload_file(data = Body()):    
+#     uploaded_file = data['image']
+#     file_location = f"./src/user_images/{uploaded_file.filename}"
+#     with open(file_location, "wb+") as file_object:
+#         file_object.write(uploaded_file.file.read())
+#     return {"info": f"file '{uploaded_file.filename}' saved at '{file_location}'"}
+# from typing import Annotated
+# @app.post("/api/load_picture")
+# async def create_file(
+#     file: Annotated[bytes, File()]
+# ):
+#     return {
+#         "file_size": len(file)
+#     }
